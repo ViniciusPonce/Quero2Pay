@@ -67,7 +67,7 @@ class CompanyAPIController extends AppBaseController
             return response()->json(
                 [
                     'success' => true,
-                    'msg' => 'Empresa criada com sucesso'
+                    'msg' => 'Empresa cadastrada com sucesso'
                 ],
                 201
             );

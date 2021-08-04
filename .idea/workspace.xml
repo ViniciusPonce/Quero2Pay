@@ -2,19 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="983cc0a9-e4e7-4d35-8f5d-f01b8b9de94a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/API/ErrosApi.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/quero2-test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/quero2-test.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/API/ErrosApi.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/CompanyAPIController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/CompanyAPIController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Resources/CompanyResource.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Resources/CompanyResource.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Company.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Company.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Repositories/CompanyRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/CompanyRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_08_03_020621_create_companies_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_08_03_020621_create_companies_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/home.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/home.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/EmployeeAPIController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/EmployeeAPIController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Employee.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Employee.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,6 +20,14 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
@@ -163,7 +164,7 @@
       <option name="presentableId" value="Default" />
       <updated>1627953027937</updated>
       <workItem from="1627953029384" duration="198000" />
-      <workItem from="1628041562049" duration="14833000" />
+      <workItem from="1628041562049" duration="18743000" />
     </task>
     <servers />
   </component>

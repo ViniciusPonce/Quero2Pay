@@ -9,7 +9,7 @@ use App\Repositories\EmployeeRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Resources\EmployeeResource;
-use Response;
+use Illuminate\Http\Response;
 
 /**
  * Class EmployeeController
@@ -21,9 +21,9 @@ class EmployeeAPIController extends AppBaseController
     /** @var  EmployeeRepository */
     private $employeeRepository;
 
-    public function __construct(EmployeeRepository $employeeRepo)
+    public function __construct(EmployeeRepository $employeeRepository)
     {
-        $this->employeeRepository = $employeeRepo;
+        $this->employeeRepository = $employeeRepository;
     }
 
     /**
@@ -35,13 +35,18 @@ class EmployeeAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $employees = $this->employeeRepository->all(
-            $request->except(['skip', 'limit']),
-            $request->get('skip'),
-            $request->get('limit')
-        );
+        try {
 
-        return $this->sendResponse(EmployeeResource::collection($employees), 'Employees retrieved successfully');
+            $employees = $this->companyRepository->all();
+            return response()->json($employees);
+
+        } catch (\Exception $e){
+            if(config('app.debug')){
+                return $this->sendError('Nenhum funcionário encontrado', 404);
+            }
+            return $this->sendError('Erro de operação', 1011);
+        }
+
     }
 
     /**
@@ -50,15 +55,29 @@ class EmployeeAPIController extends AppBaseController
      *
      * @param CreateEmployeeAPIRequest $request
      *
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(CreateEmployeeAPIRequest $request)
     {
-        $input = $request->all();
+        try {
 
-        $employee = $this->employeeRepository->create($input);
+            $input = $request->all();
 
-        return $this->sendResponse(new EmployeeResource($employee), 'Employee saved successfully');
+            $this->employeeRepository->create($input);
+
+            return response()->json(
+                [
+                    'success' => true,
+                    'msg' => 'Funcionario cadastrado com sucesso'
+                ],
+                201
+            );
+        }catch (\Exception $e){
+            if(config('app.debug')){
+                return $this->sendError('Erro ao cadastrar funcionario, verifique os dados', 404);
+            }
+            return $this->sendError('Erro de operação', 1011);
+        }
     }
 
     /**
@@ -71,14 +90,17 @@ class EmployeeAPIController extends AppBaseController
      */
     public function show($id)
     {
-        /** @var Employee $employee */
-        $employee = $this->employeeRepository->find($id);
+        try {
+            $input = $this->employeeRepository->find($id);
 
-        if (empty($employee)) {
-            return $this->sendError('Employee not found');
+            return $this->sendResponse(new EmployeeResource($input), 'Funcionáio encontrado com sucesso');
+
+        }catch (\Exception $e){
+            if(config('app.debug')){
+                return $this->sendError('Funcionário não encontrado, verifique os dados');
+            }
+            return $this->sendError('Erro de operação', 1011);
         }
-
-        return $this->sendResponse(new EmployeeResource($employee), 'Employee retrieved successfully');
     }
 
     /**
@@ -92,18 +114,25 @@ class EmployeeAPIController extends AppBaseController
      */
     public function update($id, UpdateEmployeeAPIRequest $request)
     {
-        $input = $request->all();
+        try {
+            $input = $request->all();
+            /** @var Employee $employee */
+            $employee = $this->employeeRepository->find($id);
 
-        /** @var Employee $employee */
-        $employee = $this->employeeRepository->find($id);
+            if (empty($employee)) {
+                return $this->sendError('Funcionário não encontrado');
+            }
 
-        if (empty($employee)) {
-            return $this->sendError('Employee not found');
+            $employee = $this->employeeRepository->update($input, $id);
+
+            return $this->sendResponse(new EmployeeResource($employee), 'Funcionário atualizado com sucesso');
+
+        }catch (\Exception $e){
+            if(config('app.debug')){
+                return $this->sendError('Funcionario não cadastrado, verifique os dados');
+            }
+            return $this->sendError('Erro de operação', 1011);
         }
-
-        $employee = $this->employeeRepository->update($input, $id);
-
-        return $this->sendResponse(new EmployeeResource($employee), 'Employee updated successfully');
     }
 
     /**
@@ -118,15 +147,23 @@ class EmployeeAPIController extends AppBaseController
      */
     public function destroy($id)
     {
-        /** @var Employee $employee */
-        $employee = $this->employeeRepository->find($id);
+        try {
+            /** @var Employee $employee */
+            $employee = $this->employeeRepository->find($id);
 
-        if (empty($employee)) {
-            return $this->sendError('Employee not found');
+            if (empty($employee)) {
+                return $this->sendError('Funcionário não encontrado');
+            }
+
+            $employee->delete();
+
+            return $this->sendResponse(new EmployeeResource($employee), 'Funcionário deletado com sucesso');
+
+        }catch (\Exception $e){
+            if(config('app.debug')){
+                return $this->sendError('Funcionario não cadastrado, verifique os dados');
+            }
+            return $this->sendError('Erro de operação', 1011);
         }
-
-        $employee->delete();
-
-        return $this->sendSuccess('Employee deleted successfully');
     }
 }

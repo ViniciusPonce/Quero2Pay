@@ -26,7 +26,7 @@ class Employee extends Model
         'nome',
         'cargo',
         'salario',
-        'id_empresa'
+        'empresa_id'
     ];
 
     /**
@@ -48,8 +48,7 @@ class Employee extends Model
      */
     public static $rules = [
         'nome' => 'required|string',
-        'cargo' => 'string|required',
-        'salario' => 'float|required|float'
+        'cargo' => 'required|required'
     ];
 
     public function company(){
