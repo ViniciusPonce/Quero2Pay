@@ -40,7 +40,7 @@ class EmployeeAPIController extends AppBaseController
             $employees = $this->companyRepository->all();
             return response()->json($employees);
 
-        } catch (\Exception $e){
+        } catch (\Exception $e) {
             if(config('app.debug')){
                 return $this->sendError('Nenhum funcionário encontrado', 404);
             }
@@ -72,8 +72,8 @@ class EmployeeAPIController extends AppBaseController
                 ],
                 201
             );
-        }catch (\Exception $e){
-            if(config('app.debug')){
+        } catch (\Exception $e) {
+            if (config('app.debug')) {
                 return $this->sendError('Erro ao cadastrar funcionario, verifique os dados', 404);
             }
             return $this->sendError('Erro de operação', 1011);
@@ -96,8 +96,8 @@ class EmployeeAPIController extends AppBaseController
             return $this->sendResponse(new EmployeeResource($input), 'Funcionáio encontrado com sucesso');
 
         }catch (\Exception $e){
-            if(config('app.debug')){
-                return $this->sendError('Funcionário não encontrado, verifique os dados');
+            if (config('app.debug')) {
+                return $this->sendError('Funcionário não encontrado, verifique os dados', 404);
             }
             return $this->sendError('Erro de operação', 1011);
         }
@@ -127,9 +127,9 @@ class EmployeeAPIController extends AppBaseController
 
             return $this->sendResponse(new EmployeeResource($employee), 'Funcionário atualizado com sucesso');
 
-        }catch (\Exception $e){
-            if(config('app.debug')){
-                return $this->sendError('Funcionario não cadastrado, verifique os dados');
+        } catch (\Exception $e){
+            if (config('app.debug')) {
+                return $this->sendError('Funcionario não cadastrado, verifique os dados', 404);
             }
             return $this->sendError('Erro de operação', 1011);
         }
@@ -159,9 +159,9 @@ class EmployeeAPIController extends AppBaseController
 
             return $this->sendResponse(new EmployeeResource($employee), 'Funcionário deletado com sucesso');
 
-        }catch (\Exception $e){
-            if(config('app.debug')){
-                return $this->sendError('Funcionario não cadastrado, verifique os dados');
+        } catch (\Exception $e) {
+            if (config('app.debug')) {
+                return $this->sendError('Funcionario não cadastrado, verifique os dados', 404);
             }
             return $this->sendError('Erro de operação', 1011);
         }

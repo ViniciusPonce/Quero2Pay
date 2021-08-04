@@ -47,7 +47,7 @@ class Employee extends Model
      * @var array
      */
     public static $rules = [
-        'nome' => 'required|string',
+        'nome' => 'required|string|max:200',
         'cargo' => 'required|required'
     ];
 

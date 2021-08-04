@@ -23,7 +23,7 @@ class CreateCompaniesTable extends Migration
             $table->string('cidade');
             $table->string('estado');
             $table->integer('ibge');
-            $table->string('numero');
+            $table->integer('numero');
             $table->string('complemento')->nullable();
             $table->string('telefone');
             $table->timestamps();

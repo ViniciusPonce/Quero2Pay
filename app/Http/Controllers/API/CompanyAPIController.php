@@ -40,8 +40,8 @@ class CompanyAPIController extends AppBaseController
             $companies = $this->companyRepository->all();
             return response()->json($companies);
 
-        } catch (\Exception $e){
-            if(config('app.debug')){
+        } catch (\Exception $e) {
+            if (config('app.debug')) {
                 return $this->sendError('Nenhuma empresa encontrada', 404);
             }
             return $this->sendError('Erro de operação', 1011);
@@ -71,9 +71,9 @@ class CompanyAPIController extends AppBaseController
                 ],
                 201
             );
-        }catch (\Exception $e){
-            if(config('app.debug')){
-                return $this->sendError('Erro ao cadastrar empresa, verifique os dados', 203);
+        } catch (\Exception $e) {
+            if (config('app.debug')) {
+                return $this->sendError('Erro ao cadastrar empresa, verifique os dados', 404);
             }
             return $this->sendError('Erro de operação', 1011);
         }
@@ -95,9 +95,9 @@ class CompanyAPIController extends AppBaseController
 
             return $this->sendResponse(new CompanyResource($input), 'Empresa encontrada com sucesso');
 
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             if(config('app.debug')){
-                return $this->sendError('Empresa nao encontrada, verifique os dados');
+                return $this->sendError('Empresa nao encontrada, verifique os dados', 404);
             }
             return $this->sendError('Erro de operação', 1011);
         }
@@ -127,9 +127,9 @@ class CompanyAPIController extends AppBaseController
 
             return $this->sendResponse(new CompanyResource($company), 'Company updated successfully');
 
-        }catch (\Exception $e){
-            if(config('app.debug')){
-                return $this->sendError('Empresa nao encontrada, verifique os dados');
+        } catch (\Exception $e) {
+            if (config('app.debug')) {
+                return $this->sendError('Empresa nao encontrada, verifique os dados', 404);
             }
             return $this->sendError('Erro de operação', 1011);
         }
@@ -162,9 +162,9 @@ class CompanyAPIController extends AppBaseController
 
         return $this->sendSuccess('Empresa deletada com sucesso');
 
-        }catch (\Exception $e){
-            if(config('app.debug')){
-                return $this->sendError('Verifique os dados');
+        } catch (\Exception $e) {
+            if (config('app.debug')) {
+                return $this->sendError('Verifique os dados', 404);
             }
             return $this->sendError('Erro de operação', 1011);
         }

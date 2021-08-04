@@ -46,7 +46,7 @@ class Company extends Model
         'cidade' => 'string',
         'estado' => 'string',
         'ibge' => 'integer',
-        'numero' => 'string',
+        'numero' => 'integer',
         'complemento' => 'string',
         'telefone' => 'string'
     ];
@@ -57,7 +57,7 @@ class Company extends Model
      * @var array
      */
     public static $rules = [
-        'nome' => 'required',
+        'nome' => 'required|max:200',
         'cep' => 'required',
         'rua' => 'required',
         'bairro' => 'required',
