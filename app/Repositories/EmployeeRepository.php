@@ -2,16 +2,16 @@
 
 namespace App\Repositories;
 
-use App\Models\Company;
+use App\Models\Employee;
 use App\Repositories\BaseRepository;
 
 /**
- * Class CompanyRepository
+ * Class EmployeeRepository
  * @package App\Repositories
- * @version August 3, 2021, 2:06 am UTC
+ * @version August 4, 2021, 1:47 pm UTC
 */
 
-class CompanyRepository extends BaseRepository
+class EmployeeRepository extends BaseRepository
 {
     /**
      * @var array
@@ -19,15 +19,9 @@ class CompanyRepository extends BaseRepository
     protected $fieldSearchable = [
         'id',
         'nome',
-        'cep',
-        'rua',
-        'bairro',
-        'cidade',
-        'estado',
-        'ibge',
-        'numero',
-        'complemento',
-        'telefone',
+        'cargo',
+        'salario',
+        'empresa_id',
         'created_at',
         'updated_at'
     ];
@@ -47,6 +41,6 @@ class CompanyRepository extends BaseRepository
      **/
     public function model()
     {
-        return Company::class;
+        return Employee::class;
     }
 }

@@ -17,6 +17,8 @@ class Company extends Model
 
     public $table = 'companies';
 
+    public const CREATED_AT = 'created_at';
+    public const UPDATED_AT = 'updated_at';
 
     public $fillable = [
         'nome',
@@ -25,6 +27,7 @@ class Company extends Model
         'bairro',
         'cidade',
         'estado',
+        'ibge',
         'numero',
         'complemento',
         'telefone'
@@ -42,7 +45,8 @@ class Company extends Model
         'bairro' => 'string',
         'cidade' => 'string',
         'estado' => 'string',
-        'numero' => 'integer',
+        'ibge' => 'integer',
+        'numero' => 'string',
         'complemento' => 'string',
         'telefone' => 'string'
     ];
@@ -59,6 +63,7 @@ class Company extends Model
         'bairro' => 'required',
         'cidade' => 'required',
         'estado' => 'required',
+        'ibge' => 'required',
         'ibge' => 'required',
         'numero' => 'required'
     ];

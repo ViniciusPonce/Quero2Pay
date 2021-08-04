@@ -9,7 +9,8 @@ use App\Repositories\CompanyRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Resources\CompanyResource;
-use Response;
+use Illuminate\Http\Response;
+
 
 /**
  * Class CompanyController
@@ -21,9 +22,9 @@ class CompanyAPIController extends AppBaseController
     /** @var  CompanyRepository */
     private $companyRepository;
 
-    public function __construct(CompanyRepository $companyRepo)
+    public function __construct(CompanyRepository $companyRepository)
     {
-        $this->companyRepository = $companyRepo;
+        $this->companyRepository = $companyRepository;
     }
 
     /**
@@ -35,13 +36,17 @@ class CompanyAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $companies = $this->companyRepository->all(
-            $request->except(['skip', 'limit']),
-            $request->get('skip'),
-            $request->get('limit')
-        );
+        try {
+            $companies = $this->companyRepository->all();
+            return response()->json($companies);
 
-        return $this->sendResponse(CompanyResource::collection($companies), 'Companies retrieved successfully');
+        } catch (\Exception $e){
+            if(config('app.debug')){
+                return $this->sendError('Nenhuma empresa encontrada', 404);
+            }
+            return $this->sendError('Erro de operação', 1011);
+        }
+
     }
 
     /**
@@ -50,15 +55,29 @@ class CompanyAPIController extends AppBaseController
      *
      * @param CreateCompanyAPIRequest $request
      *
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(CreateCompanyAPIRequest $request)
     {
-        $input = $request->all();
+        try {
+            $input = $request->all();
 
-        $company = $this->companyRepository->create($input);
+            $this->companyRepository->create($input);
 
-        return $this->sendResponse(new CompanyResource($company), 'Company saved successfully');
+            return response()->json(
+                [
+                    'success' => true,
+                    'msg' => 'Empresa criada com sucesso'
+                ],
+                201
+            );
+        }catch (\Exception $e){
+            if(config('app.debug')){
+                return $this->sendError('Erro ao cadastrar empresa, verifique os dados', 203);
+            }
+            return $this->sendError('Erro de operação', 1011);
+        }
+
     }
 
     /**
@@ -71,14 +90,17 @@ class CompanyAPIController extends AppBaseController
      */
     public function show($id)
     {
-        /** @var Company $company */
-        $company = $this->companyRepository->find($id);
+        try {
+            $input = $this->companyRepository->find($id);
 
-        if (empty($company)) {
-            return $this->sendError('Company not found');
+            return $this->sendResponse(new CompanyResource($input), 'Empresa encontrada com sucesso');
+
+        }catch (\Exception $e){
+            if(config('app.debug')){
+                return $this->sendError('Empresa nao encontrada, verifique os dados');
+            }
+            return $this->sendError('Erro de operação', 1011);
         }
-
-        return $this->sendResponse(new CompanyResource($company), 'Company retrieved successfully');
     }
 
     /**
@@ -92,18 +114,28 @@ class CompanyAPIController extends AppBaseController
      */
     public function update($id, UpdateCompanyAPIRequest $request)
     {
-        $input = $request->all();
+        try {
+            $input = $request->all();
+            /** @var Company $company */
+            $company = $this->companyRepository->find($id);
 
-        /** @var Company $company */
-        $company = $this->companyRepository->find($id);
+            if (empty($company)) {
+                return $this->sendError('Company not found');
+            }
 
-        if (empty($company)) {
-            return $this->sendError('Company not found');
+            $company = $this->companyRepository->update($input, $id);
+
+            return $this->sendResponse(new CompanyResource($company), 'Company updated successfully');
+
+        }catch (\Exception $e){
+            if(config('app.debug')){
+                return $this->sendError('Empresa nao encontrada, verifique os dados');
+            }
+            return $this->sendError('Erro de operação', 1011);
         }
 
-        $company = $this->companyRepository->update($input, $id);
 
-        return $this->sendResponse(new CompanyResource($company), 'Company updated successfully');
+
     }
 
     /**
@@ -118,15 +150,23 @@ class CompanyAPIController extends AppBaseController
      */
     public function destroy($id)
     {
+        try{
         /** @var Company $company */
         $company = $this->companyRepository->find($id);
 
         if (empty($company)) {
-            return $this->sendError('Company not found');
+            return $this->sendError('Empresa não encontrada');
         }
 
         $company->delete();
 
-        return $this->sendSuccess('Company deleted successfully');
+        return $this->sendSuccess('Empresa deletada com sucesso');
+
+        }catch (\Exception $e){
+            if(config('app.debug')){
+                return $this->sendError('Verifique os dados');
+            }
+            return $this->sendError('Erro de operação', 1011);
+        }
     }
 }

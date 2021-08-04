@@ -18,5 +18,20 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+//    <!-- Company Api Routes -->
+Route::prefix('companies')->group(function(){
+        Route::get('/', 'CompanyAPIController@index');
+        Route::get('/{id}', 'CompanyAPIController@show');
 
-Route::resource('companies', 'CompanyAPIController');
+        Route::post('/', 'CompanyAPIController@store');
+        Route::put('/{id}', 'CompanyAPIController@update');
+
+        Route::delete('/{id}', 'CompanyAPIController@destroy');
+});
+
+
+
+
+//Route::resource('companies', 'CompanyAPIController');
+//
+//Route::resource('employees', 'EmployeeAPIController');
