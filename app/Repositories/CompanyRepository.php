@@ -24,7 +24,6 @@ class CompanyRepository extends BaseRepository
         'bairro',
         'cidade',
         'estado',
-        'ibge',
         'numero',
         'complemento',
         'telefone',

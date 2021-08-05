@@ -27,7 +27,6 @@ class Company extends Model
         'bairro',
         'cidade',
         'estado',
-        'ibge',
         'numero',
         'complemento',
         'telefone'
@@ -45,7 +44,6 @@ class Company extends Model
         'bairro' => 'string',
         'cidade' => 'string',
         'estado' => 'string',
-        'ibge' => 'integer',
         'numero' => 'integer',
         'complemento' => 'string',
         'telefone' => 'string'
@@ -63,8 +61,6 @@ class Company extends Model
         'bairro' => 'required',
         'cidade' => 'required',
         'estado' => 'required',
-        'ibge' => 'required',
-        'ibge' => 'required',
         'numero' => 'required'
     ];
 

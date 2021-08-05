@@ -33,6 +33,7 @@ Route::prefix('companies')->group(function(){
     Route::prefix('employees')->group(function(){
         Route::get('/', 'EmployeeAPIController@index');
         Route::get('/{id}', 'EmployeeAPIController@show');
+        Route::get('/show/{id}', 'EmployeeAPIController@showEmployeeCompany');
 
         Route::post('/', 'EmployeeAPIController@store');
         Route::put('/{id}', 'EmployeeAPIController@update');

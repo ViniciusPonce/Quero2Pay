@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Employee;
 use App\Repositories\BaseRepository;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class EmployeeRepository
@@ -26,6 +27,13 @@ class EmployeeRepository extends BaseRepository
         'updated_at'
     ];
 
+    public static function showEmployeeCompany(int $id)
+    {
+        return  DB::table('employees')
+            ->where('empresa_id', $id)
+            ->get();
+    }
+
     /**
      * Return searchable fields
      *
@@ -43,4 +51,6 @@ class EmployeeRepository extends BaseRepository
     {
         return Employee::class;
     }
+
+
 }

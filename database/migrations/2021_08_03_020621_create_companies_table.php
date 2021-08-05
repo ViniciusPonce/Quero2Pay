@@ -22,7 +22,6 @@ class CreateCompaniesTable extends Migration
             $table->string('bairro');
             $table->string('cidade');
             $table->string('estado');
-            $table->integer('ibge');
             $table->integer('numero');
             $table->string('complemento')->nullable();
             $table->string('telefone');

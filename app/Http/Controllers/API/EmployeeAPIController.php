@@ -31,13 +31,12 @@ class EmployeeAPIController extends AppBaseController
      * GET|HEAD /employees
      *
      * @param Request $request
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
         try {
-
-            $employees = $this->companyRepository->all();
+            $employees = $this->employeeRepository->all();
             return response()->json($employees);
 
         } catch (\Exception $e) {
@@ -165,5 +164,21 @@ class EmployeeAPIController extends AppBaseController
             }
             return $this->sendError('Erro de operação', 1011);
         }
+    }
+
+    public function showEmployeeCompany($empresa_id, Request $request)
+    {
+        try {
+
+            $employees = EmployeeRepository::showEmployeeCompany($empresa_id);
+            return response()->json($employees);
+
+        } catch (\Exception $e) {
+            if(config('app.debug')){
+                return $this->sendError('Nenhum funcionário encontrado', 404);
+            }
+            return $this->sendError('Erro de operação', 1011);
+        }
+
     }
 }

@@ -17,13 +17,29 @@ Route::get('/', function () {
     return view('home');
 });
 
+//    <!-- Company View Routes -->
 Route::get('/companies', function(){
     return view('companies.index');
 });
+Route::get('/companies-register', function(){
+    return view('companies.registerCompany');
+});
+Route::get('companies-show/{id}', function(){
+    return view ('companies.showCompany');
+});
 
+
+//    <!-- Emplyee View Routes -->
 Route::get('/employees', function(){
     return view('employees.index');
 });
+
+Route::get('/employees-register', function(){
+    return view('employees.registerEmployee');
+});
+
+
+
 
 //Auth::routes();
 //
