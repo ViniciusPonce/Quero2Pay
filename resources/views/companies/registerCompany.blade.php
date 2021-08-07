@@ -71,7 +71,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label class="form-label" for="telefone">Telefone</label>
-                            <input type="text" id="telefone" class="form-control border" />
+                            <input type="text" id="telefone" class="form-control border telefone" />
                         </div>
                     </div>
                 </div>
@@ -96,6 +96,20 @@
             'X-CSRF-TOKEN': "{{ csrf_token() }}"
         }
     });
+
+    jQuery("input.telefone")
+        .mask("(99) 9999-9999?9").focusout(function (event) {
+            var target, phone, element;
+            target = (event.currentTarget) ? event.currentTarget : event.srcElement;
+            phone = target.value.replace(/\D/g, '');
+            element = $(target);
+            element.unmask();
+            if(phone.length > 10) {
+                element.mask("(99) 99999-999?9");
+            } else {
+                element.mask("(99) 9999-9999?9");
+            }
+        });
 
     $(document).ready(function() {
 
@@ -188,7 +202,7 @@
             if (data.success){
                 Swal.fire({
                     title: 'Sucesso!',
-                    text: 'Vendedor cadastrado com sucesso',
+                    text: 'Empresa cadastrada com sucesso',
                     icon: 'success',
                     showConfirmButton: false,
                     timer: 2000
@@ -215,7 +229,6 @@
                 timer: 2000
             })
         });
-        // location.reload();
     };
 
     $('#formEmpresa').submit( function(event){

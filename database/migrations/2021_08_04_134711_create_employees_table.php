@@ -16,7 +16,7 @@ class CreateEmployeesTable extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nome');
+            $table->string('nome_funcionario');
             $table->string('cargo');
             $table->float('salario', 15, 2);
             $table->unsignedInteger('empresa_id')->onDelete('cascade');

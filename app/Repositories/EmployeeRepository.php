@@ -19,7 +19,7 @@ class EmployeeRepository extends BaseRepository
      */
     protected $fieldSearchable = [
         'id',
-        'nome',
+        'nome_funcionario',
         'cargo',
         'salario',
         'empresa_id',
@@ -31,6 +31,14 @@ class EmployeeRepository extends BaseRepository
     {
         return  DB::table('employees')
             ->where('empresa_id', $id)
+            ->get();
+    }
+
+    public static function dataEmployeeModal(int $id)
+    {
+        return DB::table('companies')
+            ->join('employees', 'employees.empresa_id', 'companies.id')
+            ->where('employees.id', $id)
             ->get();
     }
 
@@ -51,6 +59,7 @@ class EmployeeRepository extends BaseRepository
     {
         return Employee::class;
     }
+
 
 
 }

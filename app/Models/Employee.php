@@ -23,7 +23,7 @@ class Employee extends Model
     public const CARGOS = ['Programador', 'Designer', 'Administração'];
 
     public $fillable = [
-        'nome',
+        'nome_funcionario',
         'cargo',
         'salario',
         'empresa_id'
@@ -35,7 +35,7 @@ class Employee extends Model
      * @var array
      */
     protected $casts = [
-        'nome' => 'string',
+        'nome_funcionario' => 'string',
         'cargo' => 'string',
         'salario' => 'float',
         'empresa_id' => 'integer'
@@ -47,7 +47,7 @@ class Employee extends Model
      * @var array
      */
     public static $rules = [
-        'nome' => 'required|string|max:200',
+        'nome_funcionario' => 'required|string|max:200',
         'cargo' => 'required|required'
     ];
 

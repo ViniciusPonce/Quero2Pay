@@ -9,6 +9,7 @@ use App\Repositories\EmployeeRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Resources\EmployeeResource;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Response;
 
 /**
@@ -166,6 +167,11 @@ class EmployeeAPIController extends AppBaseController
         }
     }
 
+    /**
+     * @param $empresa_id
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function showEmployeeCompany($empresa_id, Request $request)
     {
         try {
@@ -179,6 +185,44 @@ class EmployeeAPIController extends AppBaseController
             }
             return $this->sendError('Erro de operação', 1011);
         }
+    }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function selectRolesEmployee(Request $request)
+    {
+        try {
+            $employees = Employee::CARGOS;
+
+            return response()->json($employees);
+
+        } catch (\Exception $e) {
+            if(config('app.debug')){
+                return $this->sendError('Nenhum funcionário encontrado', 404);
+            }
+            return $this->sendError('Erro de operação', 1011);
+        }
+
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function dataEmployeeModal($id, Request $request)
+    {
+        try {
+
+            $employee = EmployeeRepository::dataEmployeeModal($id);
+            return response()->json($employee);
+
+        }catch (\Exception $e){
+            if (config('app.debug')) {
+                return $this->sendError('Funcionário não encontrado, verifique os dados', 404);
+            }
+            return $this->sendError('Erro de operação', 1011);
+        }
     }
 }

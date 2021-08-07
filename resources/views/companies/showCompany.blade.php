@@ -108,7 +108,8 @@
                         </table>
                     </div>
                 </form>
-                <div id="modalFuncionario" class="modal" tabindex="-1">
+                <!-- Modal New Employee -->
+                <div id="modalFuncionario" class="modal fade" tabindex="-1">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header text-center">
@@ -125,9 +126,13 @@
                                         </div>
 
                                         <!-- Text input -->
-                                        <div class="form-group mb-4">
-                                            <label class="form-label" for="form6Example3">Cargo</label>
-                                            <input type="text" id="modalCargo" class="form-control border" />
+                                        <div class="form-group">
+                                            <label>Cargo</label>
+                                            <div class="input-group mb-3">
+                                                <select class="form-select" id="selectCargo">
+
+                                                </select>
+                                            </div>
                                         </div>
 
                                         <!-- Text input -->
@@ -148,9 +153,100 @@
                         </div>
                     </div>
                 </div>
+                    </div>
+                </div>
+            <!-- Modal View Employees -->
+            <div id="modalViewFuncionario" class="modal" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header text-center">
+                            <h5 class="modal-title">Dados</h5>
+                            <button  type="button" class="btn" onclick="closeModalViewEmployee()">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="w-100 p-5 justify-content-center">
+                                <form class="form-group">
+                                    <!-- Text input -->
+                                    <div class="form mb-4">
+                                        <label class="form-label" for="nome">Nome</label>
+                                        <input type="text" id="modalViewNome" class="form-control border" disabled="true"/>
+                                    </div>
+
+                                    <!-- Text input -->
+                                    <div class="form mb-4">
+                                        <label class="form-label" for="cargo">Cargo</label>
+                                        <input type="text" id="modalViewCargo" class="form-control border" disabled="true"/>
+                                    </div>
+
+                                    <!-- Text input -->
+                                    <div class="form-group mb-4">
+                                        <label class="form-label maskMoney" for="salario">Salario</label>
+                                        <input type="text" id="modalViewSalario" class="form-control border" disabled="true"/>
+                                    </div>
+
+                                    <!-- Text input -->
+                                    <div class="form-group mb-4">
+                                        <label class="form-label" for="empresa">Empresa</label>
+                                        <input type="text" id="modalViewEmpresa" class="form-control border" disabled="true"/>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal Edit Employees -->
+            <div id="modalEditFuncionario" class="modal" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header text-center">
+                            <h5 class="modal-title">Dados</h5>
+                            <button  type="button" class="btn" onclick="closeModalViewEmployee()">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="w-100 p-5 justify-content-center">
+                                <form class="form-group">
+                                    <input type="hidden" id="modalEditId" class="form-control border" />
+                                    <!-- Text input -->
+                                    <div class="form mb-4">
+                                        <label class="form-label" for="nome">Nome</label>
+                                        <input type="text" id="modalEditNome" class="form-control border" />
+                                    </div>
+
+                                    <!-- Text input -->
+                                    <div class="form-group">
+                                        <label>Cargo</label>
+                                        <div class="input-group mb-3">
+                                            <select class="form-select" id="selectEditCargo">
+
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <!-- Text input -->
+                                    <div class="form-group mb-4">
+                                        <label class="form-label maskMoney" for="salario">Salario</label>
+                                        <input type="text" id="modalEditSalario" class="form-control border"/>
+                                    </div>
+
+                                    <!-- Text input -->
+                                    <div class="form-group mb-4">
+                                        <label class="form-label" for="empresa">Empresa</label>
+                                        <input type="text" id="modalEditEmpresa" class="form-control border" disabled="true"/>
+                                    </div>
+                                </form>
+                                <div class="text-center">
+                                    <button type="button" class="btn btn-primary" onclick="updateEmployee()" style="border-radius: 18px; background-color: #4682B4;" >Salvar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+    </div>
+
 <script type="text/javascript">
 
     $.ajaxSetup({
@@ -177,24 +273,49 @@
     }
 
     function constructLine(employees){
-        console.log(employees)
         var line = `<tr style="font-size: 15px">` +
             `<td>` + `${employees.id}` + `</td>` +
-            `<td>` + `${employees.nome}` + `</td>` +
+            `<td>` + `${employees.nome_funcionario}` + `</td>` +
             `<td>` + `${employees.cargo}` + `</td>` +
-            `<td>` + `${employees.salario}` + `</td>` +
+            `<td>` + `${employees.salario.toLocaleString('pt-br', {style: 'currency', currency: 'BRL'})}` + `</td>` +
+            `<td>` +
+            '<button type="button" title="Visualizar" class="btn btn-flat btn-sm pull-right" ' + ' onclick="showEmployeesViewModal('+ employees.id +')" style="background-color: #1b1e21; color: white">' + '<i class="fa fa-eye" aria-hidden="true"></i>' + '</button>' +
+            '<button type="button" title="Excluir" class="btn btn-flat btn-sm btn-danger pull-right" ' + ' onclick="deleteEmployee('+ employees.id +')" >' + '<i class="fa fa-trash " aria-hidden="true"></i>' + '</button>' +
+            '<button type="button" title="Editar" class="btn btn-flat btn-sm btn-success pull-right" ' + ' onclick="employeesEditModal('+ employees.id +')" >' + '<i class="fa fa-clipboard" aria-hidden="true"></i>' + '</button>' +
+            // '<button type="button" class="fa fa-eye" onclick="showEmployeesViewModal('+ employees.id +')" data-toggle="modal"> ver mais </button>' +
+            `</td>` +
             "</tr>";
         return line;
     }
 
-    function searchEmployees(){
+    function searchEmployeesTable(){
         var url = location.href;
         var id = Number(url.replace(/^.*\//g, ''));
         $.getJSON('/api/employees/show/' + id, function(employees){
             for(i=0; i < employees.length; i++){
-                // console.log(employees.length)
                 line = constructLine(employees[i]);
                 $('#tableEmployees>tbody').append(line);
+            }
+        })
+    }
+
+
+    function selectRole(){
+        $.getJSON('/api/employees/roles/select', function(roles){
+            for (i=0;i < roles.length; i++) {
+                option = '<option value ="' + roles[i] +'">' +
+                     roles[i] + '</option>';
+                $('#selectCargo').append(option);
+            }
+        })
+    }
+
+    function selectRoleEdit(){
+        $.getJSON('/api/employees/roles/select', function(roles){
+            for (i=0;i < roles.length; i++) {
+                option = '<option value ="' + roles[i] +'">' +
+                     roles[i] + '</option>';
+                $('#selectEditCargo').append(option);
             }
         })
     }
@@ -207,6 +328,114 @@
             decimal: ','
         });
     });
+
+    function showEmployeesViewModal(id){
+        $.getJSON('/api/employees/data/' + id, function(employee){
+            $('#modalViewNome').val(employee[0].nome_funcionario)
+            $('#modalViewCargo').val(employee[0].cargo)
+            $('#modalViewSalario').val(employee[0].salario)
+            $('#modalViewEmpresa').val(employee[0].nome )
+            $('#modalViewFuncionario').modal('show')
+        })
+    }
+
+    function employeesEditModal(id) {
+        $('#modalEditFuncionario').modal('show')
+        $.getJSON('/api/employees/data/' + id, function (employee) {
+            console.log(employee)
+            $('#modalEditId').val(employee[0].id)
+            $('#modalEditNome').val(employee[0].nome_funcionario)
+            $('#modalEditSalario').val(employee[0].salario)
+            $('#modalEditEmpresa').val(employee[0].nome)
+        })
+    }
+
+    function updateEmployee(){
+        var id = $('#modalEditId').val()
+        employeeEdit = {
+            id: $('#modalEditId').val(),
+            nome_funcionario: $('#modalEditNome').val(),
+            cargo: $('#selectEditCargo').val(),
+            salario: $('#modalEditSalario').val()
+        }
+        $.ajax({
+            type: 'PUT',
+            url: '/api/employees/' + id,
+            data: employeeEdit,
+        }).done(function(data){
+            if (data.success){
+                Swal.fire({
+                    title: 'Sucesso!',
+                    text: 'Funcionário editado com sucesso',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 2000
+                })
+                // location.reload()
+                setTimeout(function () {
+                    window.location.reload();
+                }, 1000);
+            }else{
+                Swal.fire({
+                    title: 'Oops!',
+                    text: 'Verifique os dados e tente novamente',
+                    icon: 'warning',
+                    showConfirmButton: false,
+                    timer: 2000
+                })
+            }
+        }).fail(function(){
+            Swal.fire({
+                title: 'Erro!',
+                text: 'Houve um erro no processo',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2000
+            })
+        });
+    };
+
+    function deleteEmployee(id){
+        Swal.fire({
+            title: 'Deletar Funcionário?',
+            icon: 'warning',
+            showCancelButton: true,
+            cancelButtonText: 'Cancelar',
+            confirmButtonColor: '#006400',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sim, deletar!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: 'DELETE',
+                    url: '/api/employees/' + id,
+                }).done(function(data){
+                    if (data.success) {
+                        Swal.fire({
+                            title: 'Sucesso!',
+                            text: 'Funcionário deletado com sucesso',
+                            icon: 'success',
+                            showConfirmButton: false,
+                            timer: 2000
+                        })
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 1000);
+                    }
+                }).fail(function(){
+                    Swal.fire({
+                        title: 'Erro!',
+                        text: 'Houve um erro no processo',
+                        icon: 'error',
+                        showConfirmButton: false,
+                        timer: 2000
+                    })
+                });
+            }
+        })
+    }
+
+
 
     function createEmployee(){
         var url = location.href;
@@ -223,12 +452,11 @@
         }
         var value = $("#modalSalario").maskMoney('unmasked')[0]
         employee = {
-            nome: $('#modalNome').val(),
-            cargo: $('#modalCargo').val(),
+            nome_funcionario: $('#modalNome').val(),
+            cargo: $('#selectCargo').val(),
             salario: value,
             empresa_id: id,
         };
-        console.log(id);
         $.ajax({
             type: 'POST',
             url: '/api/employees',
@@ -269,7 +497,9 @@
 
     $(document).ready(function(){
         showCompany()
-        searchEmployees()
+        searchEmployeesTable()
+        selectRole()
+        selectRoleEdit()
     })
 
 </script>
