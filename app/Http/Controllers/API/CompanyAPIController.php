@@ -32,12 +32,13 @@ class CompanyAPIController extends AppBaseController
      * GET|HEAD /companies
      *
      * @param Request $request
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
         try {
-            $companies = $this->companyRepository->all();
+//            $companies = $this->companyRepository->all();
+            $companies = Company::paginate(10);
             return response()->json($companies);
 
         } catch (\Exception $e) {

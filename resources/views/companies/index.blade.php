@@ -34,9 +34,32 @@
                 <tbody>
 
                 </tbody>
+
             </table>
         </div>
-
+        <div class="row">
+            <div class="col d-flex justify-content-center">
+                <nav id="paginator">
+                    <ul class="pagination">
+{{--                        <li class="page-item disabled">--}}
+{{--                            <span class="page-link">Anterior</span>--}}
+{{--                        </li>--}}
+{{--                        <li class="page-item">--}}
+{{--                            <a class="page-link" href="#">1</a>--}}
+{{--                        </li>--}}
+{{--                        <li class="page-item active">--}}
+{{--                            <a class="page-link" href="#">2</a>--}}
+{{--                        </li>--}}
+{{--                        <li class="page-item">--}}
+{{--                            <a class="page-link" href="#">3</a>--}}
+{{--                        </li>--}}
+{{--                        <li class="page-item">--}}
+{{--                            <a class="page-link" href="#">Proximo</a>--}}
+{{--                        </li>--}}
+                    </ul>
+                </nav>
+            </div>
+        </div>
     </div>
 </div>
 <script type="text/javascript">
@@ -60,12 +83,72 @@
         return line;
     }
 
-    function searchCompanies(){
-        $.getJSON('/api/companies', function(companies){
-            for(i=0; i < companies.length; i++){
-                line = constructLine(companies[i]);
+    function getItemProximo(data){
+        i = data.current_page + 1;
+        if ( data.last_page == data.current_page){
+            line = '<li class="page-item disabled">'
+        }else {
+            line = '<li class="page-item">'
+            line += '<a class="page-link"  ' + 'pagina="' + i +'" href="#">Proximo</a></li>'
+        }
+        return line;
+    }
+
+    function getItemAnterior(data){
+        i = data.current_page - 1;
+        if ( 1 == data.current_page)
+            line = '<li class="page-item disabled">'
+        else
+            line = '<li class="page-item">'
+            line += '<a class="page-link"  ' + 'pagina="' + i +'" href="#">Anterior</a></li>'
+
+        return line;
+    }
+
+    function getItem(data, i){
+        if (i == data.current_page)
+            line = '<li class="page-item active">'
+        else
+            line = '<li class="page-item">'
+            line += '<a class="page-link" ' + 'pagina="' + i +'"  href="#">' + i +'</a></li>'
+
+        return line;
+    }
+
+    function constructPaginator(data){
+        $("#paginator>ul>li").remove();
+        $("#paginator>ul").append(getItemAnterior(data))
+        n = 5
+        if (data.current_page - n/2 <= 1)
+            start = 1;
+        else if (data.last_page - data.current_page < n)
+            start = data.last_page - n + 1;
+        else
+            start = data.current_page - n/2;
+
+        end = start + n - 1;
+        for(i=start; i<=end;i++){
+            line = getItem(data, i);
+            $('#paginator>ul').append(line)
+        }
+        $("#paginator>ul").append(getItemProximo(data))
+    }
+
+    function constructTable(companies){
+        $("#tableCompanies>tbody>tr").remove();
+            for(i=0; i < companies.data.length; i++){
+                line = constructLine(companies.data[i]);
                 $('#tableCompanies>tbody').append(line);
             }
+    }
+
+    function searchCompanies(pagina){
+        $.getJSON('/api/companies',{page:pagina}, function(companies){
+            constructTable(companies);
+            constructPaginator(companies)
+            $("#paginator>ul>li>a").click(function(){
+                searchCompanies($(this).attr('pagina'))
+            })
         })
     }
 
@@ -78,7 +161,7 @@
     }
 
     $(document).ready(function(){
-        searchCompanies()
+        searchCompanies();
     })
 </script>
 @endsection
