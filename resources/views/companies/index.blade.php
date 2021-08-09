@@ -226,7 +226,7 @@
         return line;
     }
 
-    function searchSaleInputIDFilter() {
+    function searchInputIDFilter() {
         $('#formCompanyName')[0].reset();
         $.ajax({
             type: 'GET',
@@ -273,7 +273,6 @@
             type: 'GET',
             url: '/api/companies/name/' + $("#inputNameCompany").val()
         }).done(function (data) {
-            console.log(data)
             if (data.success) {
                 $('#paginator').remove();
                 if ($('#tableCompanies>tbody>tr').text() !== "") {
@@ -319,7 +318,7 @@
 
     $('#formCompanyId').submit( function(event){
         event.preventDefault();
-        searchSaleInputIDFilter();
+        searchInputIDFilter();
     })
 
     $('#formCompanyName').submit( function(event){

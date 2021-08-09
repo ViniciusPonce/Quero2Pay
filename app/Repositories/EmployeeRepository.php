@@ -60,6 +60,13 @@ class EmployeeRepository extends BaseRepository
             ->get();
     }
 
+    public static function searchNameField($name)
+    {
+        return DB::table('employees')
+            ->where('nome_funcionario', 'like',  $name . '%')
+            ->get();
+    }
+
     /**
      * Return searchable fields
      *

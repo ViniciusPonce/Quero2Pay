@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Requests\API\CreateEmployeeAPIRequest;
 use App\Http\Requests\API\UpdateEmployeeAPIRequest;
 use App\Models\Employee;
+use App\Repositories\CompanyRepository;
 use App\Repositories\EmployeeRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
@@ -93,7 +94,9 @@ class EmployeeAPIController extends AppBaseController
         try {
             $input = $this->employeeRepository->find($id);
 
-            return $this->sendResponse(new EmployeeResource($input), 'Funcionáio encontrado com sucesso');
+            if(!empty($input)){
+                return $this->sendResponse(new EmployeeResource($input), 'Funcionáio encontrado com sucesso');
+            }
 
         }catch (\Exception $e){
             if (config('app.debug')) {
@@ -240,6 +243,28 @@ class EmployeeAPIController extends AppBaseController
         }catch (\Exception $e){
             if (config('app.debug')) {
                 return $this->sendError('Nenhum funcionário cadastrado', 404);
+            }
+            return $this->sendError('Erro de operação', 1011);
+        }
+    }
+
+    /**
+     * @param $name
+     * @return mixed
+     */
+    public function searchNameField($name)
+    {
+        try {
+
+            $employees = EmployeeRepository::searchNameField($name);
+            $employeeData = $employees->all();
+
+            if (!empty($employeeData)) {
+                return $this->sendResponse($employeeData, 'Funcionario encontrado com sucesso');
+            }
+        } catch (\Exception $e) {
+            if (config('app.debug')) {
+                return $this->sendError('Funcionário nao encontrado, verifique os dados', 404);
             }
             return $this->sendError('Erro de operação', 1011);
         }

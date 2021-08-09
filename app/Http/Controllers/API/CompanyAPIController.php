@@ -179,6 +179,11 @@ class CompanyAPIController extends AppBaseController
             return $this->sendError('Erro de operação', 1011);
         }
     }
+
+    /**
+     * @param $name
+     * @return mixed
+     */
     public function searchNameField($name)
     {
         try {

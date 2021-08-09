@@ -38,6 +38,7 @@ Route::prefix('companies')->group(function(){
         Route::get('/show/{id}', 'EmployeeAPIController@showEmployeeCompany');
         Route::get('/data/{id}', 'EmployeeAPIController@dataEmployeeModal');
         Route::get('/list/all', 'EmployeeAPIController@listAll');
+        Route::get('/name/{name}', 'EmployeeAPIController@searchNameField');
 
 
         Route::post('/', 'EmployeeAPIController@store');
