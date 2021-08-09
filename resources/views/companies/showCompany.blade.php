@@ -14,14 +14,6 @@
             <div class="d-flex justify-content-center">
                 <h1 style="font-size: 40px; font-weight: bold">Informações da Empresa</h1>
             </div>
-{{--            <div class="row">--}}
-{{--                <div class="col d-flex justify-content-end">--}}
-{{--                    <a class="btn btn-sm" style="border-radius: 15px; background-color: #4682B4;color: white" role="button" aria-pressed="true" data-toggle="modal" data-target="#modalFuncionario">--}}
-{{--                        <i class="bi bi-plus-lg"></i>--}}
-{{--                        Editar Dados--}}
-{{--                    </a>--}}
-{{--                </div>--}}
-{{--            </div>--}}
             <div class="w-100 p-5 justify-content-center">
                 <form class="form-group" id="formEmpresa">
                     <!-- Text input -->
@@ -158,7 +150,6 @@
             '<button type="button" title="Visualizar" class="btn btn-flat btn-sm pull-right" ' + ' onclick="showEmployeesViewModal('+ employees.id +')" style="background-color: #1b1e21; color: white">' + '<i class="fa fa-eye" aria-hidden="true"></i>' + '</button>' +
             '<button type="button" title="Excluir" class="btn btn-flat btn-sm btn-danger pull-right" ' + ' onclick="deleteEmployee('+ employees.id +')" >' + '<i class="fa fa-trash " aria-hidden="true"></i>' + '</button>' +
             '<button type="button" title="Editar" class="btn btn-flat btn-sm btn-success pull-right" ' + ' onclick="employeesEditModal('+ employees.id +')" >' + '<i class="fa fa-clipboard" aria-hidden="true"></i>' + '</button>' +
-            // '<button type="button" class="fa fa-eye" onclick="showEmployeesViewModal('+ employees.id +')" data-toggle="modal"> ver mais </button>' +
             `</td>` +
             "</tr>";
         return line;
@@ -174,7 +165,6 @@
             }
         })
     }
-
 
     function selectRole(){
         $.getJSON('/api/employees/roles/select', function(roles){
