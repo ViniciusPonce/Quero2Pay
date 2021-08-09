@@ -44,39 +44,39 @@
 
                     </ul>
 
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            <li class="nav-item">
-                                <a class="nav-link" style="color: white" href="{{ route('login') }}">{{ __('Entrar') }}</a>
-                            </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" style="color: white" href="{{ route('register') }}">{{ __('Registrar-se') }}</a>
-                                </li>
-                            @endif
-                        @else
+{{--                    <!-- Right Side Of Navbar -->--}}
+{{--                    <ul class="navbar-nav ml-auto">--}}
+{{--                        <!-- Authentication Links -->--}}
+{{--                        @guest--}}
+{{--                            <li class="nav-item">--}}
+{{--                                <a class="nav-link" style="color: white" href="{{ route('login') }}">{{ __('Entrar') }}</a>--}}
+{{--                            </li>--}}
+{{--                            @if (Route::has('register'))--}}
+{{--                                <li class="nav-item">--}}
+{{--                                    <a class="nav-link" style="color: white" href="{{ route('register') }}">{{ __('Registrar-se') }}</a>--}}
+{{--                                </li>--}}
+{{--                            @endif--}}
+{{--                        @else--}}
 
-                            <li class="nav-item dropdown d-flex align-content-end">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" style="color: white" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
+{{--                            <li class="nav-item dropdown d-flex align-content-end">--}}
+{{--                                <a id="navbarDropdown" class="nav-link dropdown-toggle" style="color: white" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>--}}
+{{--                                    {{ Auth::user()->name }}--}}
+{{--                                </a>--}}
 
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Sair') }}
-                                    </a>
+{{--                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">--}}
+{{--                                    <a class="dropdown-item" href="{{ route('logout') }}"--}}
+{{--                                       onclick="event.preventDefault();--}}
+{{--                                                     document.getElementById('logout-form').submit();">--}}
+{{--                                        {{ __('Sair') }}--}}
+{{--                                    </a>--}}
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
+{{--                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">--}}
+{{--                                        @csrf--}}
+{{--                                    </form>--}}
+{{--                                </div>--}}
+{{--                            </li>--}}
+{{--                        @endguest--}}
+{{--                    </ul>--}}
                 </div>
             </div>
         </nav>

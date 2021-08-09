@@ -77,7 +77,10 @@
             `<td>` + `${companies.rua}` + ' - ' + `${companies.bairro}` + ' - ' + `${companies.cidade}` + ' - ' + `${companies.estado}` + `</td>` +
             `<td>` + `${companies.telefone}` + `</td>` +
             `<td>` +
-            '<button id="idCompany" class="btn btn-sm btn-primary" onclick="showCompanies(' + companies.id + ')"> ver mais </button>' +
+            '<button type="button" title="Visualizar" class="btn btn-flat btn-sm pull-right" ' + ' onclick="showCompanies('+ companies.id +')" style="background-color: #2d995b; color: white">' + '<i class="fa fa-info" aria-hidden="true"></i></i>' + '</button>' +
+            `</td>` +
+            `<td>` +
+            '<button type="button" title="Excluir" class="btn btn-flat btn-sm btn-danger pull-right" ' + ' onclick="deleteCompanies('+ companies.id +')" >' + '<i class="fa fa-trash " aria-hidden="true"></i>' + '</button>' +
             `</td>` +
             "</tr>";
         return line;
@@ -152,6 +155,46 @@
         })
     }
 
+    function deleteCompanies(id){
+            Swal.fire({
+                title: 'Deletar Empresa?',
+                text: 'Após deletar esta empresa os funcionários tambem serão deletados',
+                icon: 'warning',
+                showCancelButton: true,
+                cancelButtonText: 'Cancelar',
+                confirmButtonColor: '#006400',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sim, deletar!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: 'DELETE',
+                        url: '/api/companies/' + id,
+                    }).done(function(data){
+                        if (data.success) {
+                            Swal.fire({
+                                title: 'Sucesso!',
+                                text: 'Empresa deletada com sucesso',
+                                icon: 'success',
+                                showConfirmButton: false,
+                                timer: 2000
+                            })
+                            setTimeout(function () {
+                                window.location.reload();
+                            }, 1000);
+                        }
+                    }).fail(function(){
+                        Swal.fire({
+                            title: 'Erro!',
+                            text: 'Houve um erro no processo',
+                            icon: 'error',
+                            showConfirmButton: false,
+                            timer: 2000
+                        })
+                    });
+                }
+            })
+    }
 
     function showCompanies(id){
         $.getJSON('/api/companies/' + id, function(companies){

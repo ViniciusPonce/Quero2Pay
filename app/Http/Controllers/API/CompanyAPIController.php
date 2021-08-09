@@ -5,11 +5,15 @@ namespace App\Http\Controllers\API;
 use App\Http\Requests\API\CreateCompanyAPIRequest;
 use App\Http\Requests\API\UpdateCompanyAPIRequest;
 use App\Models\Company;
+use App\Models\Employee;
 use App\Repositories\CompanyRepository;
+use App\Repositories\EmployeeRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Resources\CompanyResource;
 use Illuminate\Http\Response;
+
+use function MongoDB\BSON\toJSON;
 
 
 /**
@@ -21,10 +25,12 @@ class CompanyAPIController extends AppBaseController
 {
     /** @var  CompanyRepository */
     private $companyRepository;
+    private $employeeRepository;
 
-    public function __construct(CompanyRepository $companyRepository)
+    public function __construct(CompanyRepository $companyRepository, EmployeeRepository $employeeRepository)
     {
         $this->companyRepository = $companyRepository;
+        $this->employeeRepository = $employeeRepository;
     }
 
     /**
@@ -154,11 +160,14 @@ class CompanyAPIController extends AppBaseController
         try{
         /** @var Company $company */
         $company = $this->companyRepository->find($id);
+        $employeesData = CompanyRepository::employeesThisCompany($id);
+        $employeesForDelete = Employee::whereIn('id', $employeesData->pluck('id'));
 
         if (empty($company)) {
             return $this->sendError('Empresa não encontrada');
         }
 
+        $employeesForDelete->delete();
         $company->delete();
 
         return $this->sendSuccess('Empresa deletada com sucesso');
