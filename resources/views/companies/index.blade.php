@@ -20,6 +20,9 @@
         <div class="col d-flex justify-content-center">
             <h1 style="font-size: 40px; font-weight: bold">Empresas</h1>
         </div>
+        <div class="text-center">
+            <h4>Busca Personalizada</h4>
+        </div>
         <div class="row">
             <div class="col">
                 <form class="form-group" id="formCompanyId">
@@ -43,6 +46,10 @@
                     </div>
                 </form>
             </div>
+        </div>
+        <div class="text-center">
+            <p>Limpar buscas personalizadas</p>
+            <button type="button" class="btn btn-primary mb-3" onclick="location.reload()" style="border-radius: 20px; background-color: #4682B4;color: white" >X</button>
         </div>
         <div class="m-sm-4 table-responsive">
             <table id="tableCompanies" class="table table-sm text-center table-hover" style="border-radius: 25px; height: auto; max-width: 100%; overflow: scroll">
@@ -265,6 +272,7 @@
             type: 'GET',
             url: '/api/companies/name/' + $("#inputNameCompany").val()
         }).done(function (data) {
+            console.log(data)
             if (data.success) {
                 $('#paginator').remove();
                 if ($('#tableCompanies>tbody>tr').text() !== "") {

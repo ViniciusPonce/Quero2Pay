@@ -101,7 +101,9 @@ class CompanyAPIController extends AppBaseController
         try {
             $input = $this->companyRepository->find($id);
 
-            return $this->sendResponse(new CompanyResource($input), 'Empresa encontrada com sucesso');
+            if (!empty($input)){
+                return $this->sendResponse(new CompanyResource($input), 'Empresa encontrada com sucesso');
+            }
 
         } catch (\Exception $e) {
             if(config('app.debug')){
@@ -183,7 +185,9 @@ class CompanyAPIController extends AppBaseController
             $company = CompanyRepository::searchNameField($name);
             $companyData = $company->all();
 
-            return $this->sendResponse($companyData, 'Empresa encontrada com sucesso');
+            if (!empty($companyData)) {
+                return $this->sendResponse($companyData, 'Empresa encontrada com sucesso');
+            }
 
         } catch (\Exception $e) {
             if(config('app.debug')){
