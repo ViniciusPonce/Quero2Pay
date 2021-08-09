@@ -89,13 +89,14 @@ class EmployeeAPIController extends AppBaseController
      *
      * @return Response
      */
-    public function show($id)
+    public function show(int $id)
     {
         try {
-            $input = $this->employeeRepository->find($id);
+            $input = EmployeeRepository::searchIDField($id);
+            $employeeData = $input->all();
 
-            if(!empty($input)){
-                return $this->sendResponse(new EmployeeResource($input), 'Funcionáio encontrado com sucesso');
+            if(!empty($employeeData)){
+                return $this->sendResponse($employeeData, 'Funcionáio encontrado com sucesso');
             }
 
         }catch (\Exception $e){

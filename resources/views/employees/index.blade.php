@@ -91,11 +91,10 @@
                 url: '/api/employees/' + Number($("#inputIdEmployee").val())
             }).done(function (employees) {
                 if (employees.success) {
-                    console.log(employees.data)
                     if ($('#tableEmployees>tbody>tr').text() !== "") {
                         $('#tableEmployees>tbody>tr').remove();
                     }
-                    line = constructLineFilter(employees.data);
+                    line = constructLineFilter(employees.data[0]);
                     $('#tableEmployees>tbody').append(line);
                     Swal.fire({
                         title: 'Sucesso!',

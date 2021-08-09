@@ -62,8 +62,21 @@ class EmployeeRepository extends BaseRepository
 
     public static function searchNameField($name)
     {
-        return DB::table('employees')
-            ->where('nome_funcionario', 'like',  $name . '%')
+        return DB::table('companies')
+            ->join('employees', 'employees.empresa_id', 'companies.id')
+            ->where('employees.nome_funcionario', 'like',  $name . '%')
+            ->get();
+    }
+
+    /**
+     * @param $name
+     * @return \Illuminate\Support\Collection
+     */
+    public static function searchIDField($id)
+    {
+        return DB::table('companies')
+            ->join('employees', 'employees.empresa_id', 'companies.id')
+            ->where('employees.id', 'like',  $id . '%')
             ->get();
     }
 
