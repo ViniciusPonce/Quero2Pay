@@ -40,5 +40,5 @@ Projeto desenvolvido em [Laravel 7](https://laravel.com/docs/8.x)
 #### ou
 * #### mysql: (caso for alterado a porta da imagem mysql, alterar tambem as variveis do arquivo ```.env```, citadas acima)
 
-* Caso seja testa em SO Linux, poderá pedir permissão na pasta
+* Caso seja testado em SO Linux, poderá pedir permissão na pasta
 #### ```sudo chmod 777 -R storage/```
