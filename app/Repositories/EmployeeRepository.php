@@ -27,6 +27,10 @@ class EmployeeRepository extends BaseRepository
         'updated_at'
     ];
 
+    /**
+     * @param int $id
+     * @return \Illuminate\Support\Collection
+     */
     public static function showEmployeeCompany(int $id)
     {
         return  DB::table('employees')
@@ -34,11 +38,25 @@ class EmployeeRepository extends BaseRepository
             ->get();
     }
 
+    /**
+     * @param int $id
+     * @return \Illuminate\Support\Collection
+     */
     public static function dataEmployeeModal(int $id)
     {
         return DB::table('companies')
             ->join('employees', 'employees.empresa_id', 'companies.id')
             ->where('employees.id', $id)
+            ->get();
+    }
+
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    public static function allEmployeesList()
+    {
+        return DB::table('companies')
+            ->join('employees', 'employees.empresa_id', 'companies.id')
             ->get();
     }
 

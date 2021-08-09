@@ -225,4 +225,23 @@ class EmployeeAPIController extends AppBaseController
             return $this->sendError('Erro de operação', 1011);
         }
     }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function listAll(Request $request)
+    {
+        try {
+            $employees = EmployeeRepository::allEmployeesList();
+
+            return response()->json($employees);
+
+        }catch (\Exception $e){
+            if (config('app.debug')) {
+                return $this->sendError('Nenhum funcionário cadastrado', 404);
+            }
+            return $this->sendError('Erro de operação', 1011);
+        }
+    }
 }

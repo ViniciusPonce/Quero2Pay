@@ -21,23 +21,24 @@ Route::get('/', function () {
 //    <!-- Company View Routes -->
 Route::get('/companies', function(){
     return view('companies.index');
-});
+})->middleware('auth');
+
 Route::get('/companies-register', function(){
     return view('companies.registerCompany');
-});
+})->middleware('auth');;
 Route::get('companies-show/{id}', function(){
     return view ('companies.showCompany');
-});
+})->middleware('auth');;
 
 
 //    <!-- Emplyee View Routes -->
 Route::get('/employees', function(){
     return view('employees.index');
-});
+})->middleware('auth');;
 
 Route::get('/employees-register', function(){
     return view('employees.registerEmployee');
-});
+})->middleware('auth');;
 
 
 

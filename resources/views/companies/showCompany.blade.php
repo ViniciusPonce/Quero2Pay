@@ -342,7 +342,6 @@
     function employeesEditModal(id) {
         $('#modalEditFuncionario').modal('show')
         $.getJSON('/api/employees/data/' + id, function (employee) {
-            console.log(employee)
             $('#modalEditId').val(employee[0].id)
             $('#modalEditNome').val(employee[0].nome_funcionario)
             $('#modalEditSalario').val(employee[0].salario)
@@ -371,7 +370,6 @@
                     showConfirmButton: false,
                     timer: 2000
                 })
-                // location.reload()
                 setTimeout(function () {
                     window.location.reload();
                 }, 1000);

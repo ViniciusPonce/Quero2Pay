@@ -20,8 +20,8 @@
         <div class="col d-flex justify-content-center">
             <h1 style="font-size: 40px; font-weight: bold">Empresas</h1>
         </div>
-        <div class="m-sm-4">
-            <table id="tableCompanies" class="table table-responsive table-sm text-center table-hover border-primary" style="border-radius: 25px; height: auto; max-width: 100%; overflow: scroll">
+        <div class="m-sm-4 table-responsive">
+            <table id="tableCompanies" class="table table-sm text-center table-hover" style="border-radius: 25px; height: auto; max-width: 100%; overflow: scroll">
                 <thead>
                 <tr style="font-size: 15px">
                     <th scope="col">Código</th>
@@ -118,7 +118,7 @@
     function constructPaginator(data){
         $("#paginator>ul>li").remove();
         $("#paginator>ul").append(getItemAnterior(data))
-        n = 5
+        n = 10
         if (data.current_page - n/2 <= 1)
             start = 1;
         else if (data.last_page - data.current_page < n)

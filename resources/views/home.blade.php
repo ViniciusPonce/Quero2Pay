@@ -4,7 +4,7 @@
     <div class="card" style="top: 120px; border-radius: 5px" >
         <div class="card-body">
             <div class="text-center">
-                <img src="https://www.quero2.com.br/assets/images/logo.svg" width="600" height="300" style="margin-left: 20px" class="d-inline-block align-top" alt="">
+                <img src="https://www.quero2.com.br/assets/images/logo.svg" width="600" height="300" style="margin-left: 20px" class="d-inline-block align-top img-responsive" alt="">
             </div>
             <div class="text-center m-sm-2">
                 <p align="justify">A Quero 2 Pay foi criada para oferecer os melhores meios de pagamento. Com foco em tecnologia e inovação, queremos elevar a experiência e os resultados, oferecendo serviços mais justos para as empresas e seus clientes.</p>

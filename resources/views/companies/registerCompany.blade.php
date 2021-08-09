@@ -198,7 +198,6 @@
             url: '/api/companies',
             data: company,
         }).done(function(data){
-            console.log(company);
             if (data.success){
                 Swal.fire({
                     title: 'Sucesso!',
@@ -207,7 +206,6 @@
                     showConfirmButton: false,
                     timer: 2000
                 })
-                // location.reload()
                 setTimeout(function () {
                     window.location.reload();
                 }, 1000);
