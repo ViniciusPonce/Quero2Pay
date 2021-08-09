@@ -22,6 +22,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::prefix('companies')->group(function(){
         Route::get('/', 'CompanyAPIController@index');
         Route::get('/{id}', 'CompanyAPIController@show');
+        Route::get('/name/{name}', 'CompanyAPIController@searchNameField');
 
         Route::post('/', 'CompanyAPIController@store');
         Route::put('/{id}', 'CompanyAPIController@update');

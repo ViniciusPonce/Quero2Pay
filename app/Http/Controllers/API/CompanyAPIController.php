@@ -11,6 +11,7 @@ use App\Repositories\EmployeeRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Resources\CompanyResource;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Response;
 
 use function MongoDB\BSON\toJSON;
@@ -95,7 +96,7 @@ class CompanyAPIController extends AppBaseController
      *
      * @return Response
      */
-    public function show($id)
+    public function show(int $id)
     {
         try {
             $input = $this->companyRepository->find($id);
@@ -140,9 +141,6 @@ class CompanyAPIController extends AppBaseController
             }
             return $this->sendError('Erro de operação', 1011);
         }
-
-
-
     }
 
     /**
@@ -175,6 +173,21 @@ class CompanyAPIController extends AppBaseController
         } catch (\Exception $e) {
             if (config('app.debug')) {
                 return $this->sendError('Verifique os dados', 404);
+            }
+            return $this->sendError('Erro de operação', 1011);
+        }
+    }
+    public function searchNameField($name)
+    {
+        try {
+            $company = CompanyRepository::searchNameField($name);
+            $companyData = $company->all();
+
+            return $this->sendResponse($companyData, 'Empresa encontrada com sucesso');
+
+        } catch (\Exception $e) {
+            if(config('app.debug')){
+                return $this->sendError('Empresa nao encontrada, verifique os dados', 404);
             }
             return $this->sendError('Erro de operação', 1011);
         }

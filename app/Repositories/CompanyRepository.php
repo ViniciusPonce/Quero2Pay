@@ -39,6 +39,13 @@ class CompanyRepository extends BaseRepository
             ->get();
     }
 
+    public static function searchNameField($name)
+    {
+        return DB::table('companies')
+            ->where('nome', 'like',  $name . '%')
+            ->get();
+    }
+
     /**
      * Return searchable fields
      *

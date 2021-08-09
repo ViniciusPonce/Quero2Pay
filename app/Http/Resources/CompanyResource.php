@@ -22,7 +22,6 @@ class CompanyResource extends JsonResource
             'bairro' => $this->bairro,
             'cidade' => $this->cidade,
             'estado' => $this->estado,
-            'ibge' => $this->ibge,
             'numero' => $this->numero,
             'complemento' => $this->complemento,
             'telefone' => $this->telefone,

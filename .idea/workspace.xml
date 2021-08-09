@@ -5,16 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="983cc0a9-e4e7-4d35-8f5d-f01b8b9de94a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/views/companies/modalEditEmployee.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/companies/modalNewEmployee.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/companies/modalViewEmployee.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/CompanyAPIController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/CompanyAPIController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Resources/CompanyResource.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Resources/CompanyResource.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Repositories/CompanyRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/CompanyRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/companies/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/companies/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/companies/showCompany.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/companies/showCompany.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -191,7 +188,7 @@
       <workItem from="1627953029384" duration="198000" />
       <workItem from="1628041562049" duration="114015000" />
       <workItem from="1628437429034" duration="14919000" />
-      <workItem from="1628474016916" duration="9306000" />
+      <workItem from="1628474016916" duration="19427000" />
     </task>
     <servers />
   </component>

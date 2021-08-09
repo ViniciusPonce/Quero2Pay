@@ -20,6 +20,30 @@
         <div class="col d-flex justify-content-center">
             <h1 style="font-size: 40px; font-weight: bold">Empresas</h1>
         </div>
+        <div class="row">
+            <div class="col">
+                <form class="form-group" id="formCompanyId">
+                    <div class="form-group mb-3">
+                        <label>Digite o ID da empresa</label>
+                        <input type="number" class="form-control" id="inputIdCompany" placeholder="ID">
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary mb-3" style="border-radius: 20px; background-color: #4682B4;color: white" >Pesquisar</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col">
+                <form class="form-group" id="formCompanyName">
+                    <div class="form-group mb-3">
+                        <label>Digite o nome da empresa</label>
+                        <input type="text" class="form-control" id="inputNameCompany" placeholder="Nome">
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary mb-3" style="border-radius: 20px; background-color: #4682B4;color: white">Pesquisar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
         <div class="m-sm-4 table-responsive">
             <table id="tableCompanies" class="table table-sm text-center table-hover" style="border-radius: 25px; height: auto; max-width: 100%; overflow: scroll">
                 <thead>
@@ -77,9 +101,7 @@
             `<td>` + `${companies.rua}` + ' - ' + `${companies.bairro}` + ' - ' + `${companies.cidade}` + ' - ' + `${companies.estado}` + `</td>` +
             `<td>` + `${companies.telefone}` + `</td>` +
             `<td>` +
-            '<button type="button" title="Visualizar" class="btn btn-flat btn-sm pull-right" ' + ' onclick="showCompanies('+ companies.id +')" style="background-color: #2d995b; color: white">' + '<i class="fa fa-info" aria-hidden="true"></i></i>' + '</button>' +
-            `</td>` +
-            `<td>` +
+            '<button type="button" title="Visualizar" class="btn btn-flat btn-sm pull-right" ' + ' onclick="showCompanies('+ companies.id +')" style="background-color: #2d995b; color: white">' + '<i class="fa fa-list" aria-hidden="true"></i>' + '</button>' +
             '<button type="button" title="Excluir" class="btn btn-flat btn-sm btn-danger pull-right" ' + ' onclick="deleteCompanies('+ companies.id +')" >' + '<i class="fa fa-trash " aria-hidden="true"></i>' + '</button>' +
             `</td>` +
             "</tr>";
@@ -92,7 +114,7 @@
             line = '<li class="page-item disabled">'
         }else {
             line = '<li class="page-item">'
-            line += '<a class="page-link"  ' + 'pagina="' + i +'" href="#">Proximo</a></li>'
+            line += '<a class="page-link"  ' + 'pagina="' + i +'" href="#">Próximo</a></li>'
         }
         return line;
     }
@@ -196,12 +218,119 @@
             })
     }
 
+    function constructLineFilter(companies){
+        var line = `<tr style="font-size: 15px">` +
+            `<td>` + `${companies.id}` + `</td>` +
+            `<td>` + `${companies.nome}` + `</td>` +
+            `<td>` + `${companies.rua}` + ' - ' + `${companies.bairro}` + ' - ' + `${companies.cidade}` + ' - ' + `${companies.estado}` + `</td>` +
+            `<td>` + `${companies.telefone}` + `</td>` +
+            `<td>` +
+            '<button type="button" title="Visualizar" class="btn btn-flat btn-sm pull-right" ' + ' onclick="showCompanies('+ companies.id +')" style="background-color: #2d995b; color: white">' + '<i class="fa fa-list" aria-hidden="true"></i>' + '</button>' +
+            '<button type="button" title="Excluir" class="btn btn-flat btn-sm btn-danger pull-right" ' + ' onclick="deleteCompanies('+ companies.id +')" >' + '<i class="fa fa-trash " aria-hidden="true"></i>' + '</button>' +
+            `</td>` +
+            "</tr>";
+        return line;
+    }
+
+    function searchSaleInputIDFilter() {
+        $('#formCompanyName')[0].reset();
+        $.ajax({
+            type: 'GET',
+            url: '/api/companies/' + Number($("#inputIdCompany").val())
+        }).done(function (companies) {
+            if (companies.success) {
+                console.log(companies.data)
+                $('#paginator').remove();
+                if ($('#tableCompanies>tbody>tr').text() !== "") {
+                    $('#tableCompanies>tbody>tr').remove();
+                }
+                line = constructLineFilter(companies.data);
+                $('#tableCompanies>tbody').append(line);
+                Swal.fire({
+                    title: 'Sucesso!',
+                    text: 'Encontrado com sucesso',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 2000
+                })
+            } else {
+                Swal.fire({
+                    title: 'Oops!',
+                    text: 'Empresa não cadastrada',
+                    icon: 'warning',
+                    showConfirmButton: false,
+                    timer: 2000
+                })
+            }
+        }).fail(function () {
+            Swal.fire({
+                title: 'Erro!',
+                text: 'Houve um erro no processo',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2000
+            })
+        })
+    }
+
+    function searchInputNameFilter() {
+        $('#formCompanyId')[0].reset();
+        $.ajax({
+            type: 'GET',
+            url: '/api/companies/name/' + $("#inputNameCompany").val()
+        }).done(function (data) {
+            if (data.success) {
+                $('#paginator').remove();
+                if ($('#tableCompanies>tbody>tr').text() !== "") {
+                    $('#tableCompanies>tbody>tr').remove();
+                }
+                for (i = 0; i < data.data.length; i++) {
+                    line = constructLineFilter(data.data[i]);
+                    $('#tableCompanies>tbody').append(line);
+                }
+                Swal.fire({
+                    title: 'Sucesso!',
+                    text: 'Encontrado com sucesso',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 2000
+                })
+            } else {
+                Swal.fire({
+                    title: 'Oops!',
+                    text: 'Empresa não cadastrada',
+                    icon: 'warning',
+                    showConfirmButton: false,
+                    timer: 2000
+                })
+            }
+        }).fail(function () {
+            Swal.fire({
+                title: 'Erro!',
+                text: 'Houve um erro no processo',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2000
+            })
+        })
+    }
+
     function showCompanies(id){
         $.getJSON('/api/companies/' + id, function(companies){
             location.href = 'companies-show/' + id;
         })
 
     }
+
+    $('#formCompanyId').submit( function(event){
+        event.preventDefault();
+        searchSaleInputIDFilter();
+    })
+
+    $('#formCompanyName').submit( function(event){
+        event.preventDefault();
+        searchInputNameFilter();
+    })
 
     $(document).ready(function(){
         searchCompanies();
