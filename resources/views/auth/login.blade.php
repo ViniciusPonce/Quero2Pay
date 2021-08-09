@@ -4,7 +4,12 @@
 <div class="container">
     <div class="row justify-content-center" >
         <div class="col-md-8">
-            <div class="card" style="top: 150px">
+            <div class="text-center">
+                <a class="navbar-brand" href="{{ url('login') }}">
+                    <img src="https://www.quero2pay.com.br/wp-content/uploads/2021/03/Quero2Pay_logo.svg" width="450" height="200" style="margin-left: 20px; top: 80px" class="d-inline-block align-top" alt="">
+                </a>
+            </div>
+            <div class="card">
                 <div class="card-header">{{ __('Login') }}</div>
 
                 <div class="card-body">
@@ -57,11 +62,11 @@
                                     {{ __('Entrar') }}
                                 </button>
 
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Esqueceu sua senha?') }}
-                                    </a>
-                                @endif
+{{--                                @if (Route::has('password.request'))--}}
+{{--                                    <a class="btn btn-link" href="{{ route('password.request') }}">--}}
+{{--                                        {{ __('Esqueceu sua senha?') }}--}}
+{{--                                    </a>--}}
+{{--                                @endif--}}
                             </div>
                         </div>
                     </form>

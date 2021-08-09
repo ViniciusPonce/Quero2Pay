@@ -31,9 +31,9 @@
     <div id="app">
         <nav class="navbar navbar-expand-md bg-black " >
             <div class="container">
-                <a class="navbar-brand" href="{{ url('login') }}">
-                    <img src="https://www.quero2pay.com.br/wp-content/uploads/2021/03/Quero2Pay_logo.svg" width="150" height="60" style="margin-left: 20px" class="d-inline-block align-top" alt="">
-                </a>
+{{--                <a class="navbar-brand" href="{{ url('login') }}">--}}
+{{--                    <img src="https://www.quero2pay.com.br/wp-content/uploads/2021/03/Quero2Pay_logo.svg" width="150" height="60" style="margin-left: 20px" class="d-inline-block align-top" alt="">--}}
+{{--                </a>--}}
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>

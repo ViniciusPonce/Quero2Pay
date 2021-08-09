@@ -1,7 +1,7 @@
 @extends('layouts.front')
 
 @section('content')
-    <div class="card" style="top: 120px; border-radius: 5px" >
+    <div class="card" style="top: 60px; border-radius: 5px" >
         <div class="card-body">
             <div class="text-center">
                 <img src="https://www.quero2.com.br/assets/images/logo.svg" width="600" height="300" style="margin-left: 20px" class="d-inline-block align-top img-responsive" alt="">
